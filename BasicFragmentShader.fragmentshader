@@ -11,9 +11,9 @@ void main()
 	//color = red; 
 	//color = vec3(gl_FragCoord.x, gl_FragCoord.y, gl_FragCoord.z);
 	//color = vec3(1.0f, 0.0f, 0.0f);		//red
-	color = vec3(0.0f, 1.0f, 0.0f);		//green
+	//color = vec3(0.0f, 1.0f, 0.0f);		//green
 	//color = vec3(0.0f, 0.0f, 1.0f);		//blue
-
+	color = vec3(0.5f, 0.0, 0.5f);
 	//FragmentColor = vec4(ourColor, 1.0f);
 
 }

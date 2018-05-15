@@ -3,8 +3,16 @@
 layout(location = 0) 
 in vec3 vert_pos;
 
+in vec3 normal;
+
 uniform mat4 model; //bringing variable in from c++ code
 
 void main(){
 	gl_Position = model * vec4(vert_pos, 1);
+
+	/*
+	vec3 leg1 = vert_pos[1] - vert_pos[0];
+	vec3 leg2 = vert_pos[2] - vert_pos[0];
+	normal = normalize(cross(leg1, leg2));
+	*/
 }

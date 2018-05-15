@@ -40,8 +40,8 @@ using namespace std; //If we want to print stuff
 #define EXIT_WITH_SUCCESS 0
 #define OPEN_GL_VERSION 3  //Specifies OpenGL 3.3
 #define ANTIALIASING 4  //nx antialiasing
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
+#define SCREEN_WIDTH 800//1024
+#define SCREEN_HEIGHT 800//768
 #define GLFW_FAIL 0 
 
 //External Globals…
@@ -55,6 +55,7 @@ int InitGlewFailed();
 GLuint& LoadQuad();
 GLuint& LoadTriangle();
 GLuint& LoadCustomQuad();
+GLuint& LoadCube();
 void RenderVertex(GLuint vertexBuffer);
 void RenderQuad(GLuint vertexBuffer);
 void RenderTriangle(GLuint vertexBuffer);

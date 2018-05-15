@@ -196,5 +196,80 @@ GLuint& LoadCustomQuad() {
 	return vertexBuffer;
 }
 
+GLuint& LoadCube() {
 
+	static GLfloat g_vertex_buffer_data[] = {
+		//front face		
+		// x , y , z
+		0.0f, 0.0f, 0.0f,		
+		1.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, 0.0f,
+
+		0.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+
+		//top face
+		// x , y , z
+		0.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f,
+		1.0f, 0.0f, 0.0f,
+
+		0.0f, 0.0f, 1.0f,
+		1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+
+		//right face
+		// x , y , z
+		1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+
+		1.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 0.0f,
+
+		//back face
+		// x , y , z
+		1.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 1.0f,
+		0.0f, 1.0f, 1.0f,
+
+		1.0f, 0.0f, 1.0f,
+		0.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+
+		//bottom face
+		// x , y , z
+		0.0f, 1.0f, 0.0f,
+		1.0f, 1.0f, 0.0f,
+		1.0f, 1.0f, 1.0f,
+
+		0.0f, 1.0f, 0.0f,
+		1.0f, 1.0f, 1.0f,
+		0.0f, 1.0f, 1.0f,
+
+		//left face
+		// x , y , z
+		0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 1.0f,
+
+		0.0f, 0.0f, 1.0f,
+		0.0f, 1.0f, 1.0f,
+		0.0f, 1.0f, 0.0f
+	};
+
+	int numbPoints = 6 * 3 * 6;
+	for (int i = 0; i < numbPoints; ++i) {
+		g_vertex_buffer_data[i] -= 0.5f;
+	}
+
+	GLuint vertexBuffer = 0;
+	glGenBuffers(1, &vertexBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+
+	return vertexBuffer;
+}
 //mvp model view projection

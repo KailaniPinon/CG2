@@ -1,43 +1,67 @@
 #include "RenderGameLoop.h"
-static int myVertexArraySize = 6;
+#include "OBJLoader.h"
+static int myVertexArraySize = 36;
 
 namespace {
-	auto quadPos = glm::vec3(1, 0, 0);
+	auto objPos = glm::vec3(1, 0, 0);
 
 	double lastTime = glfwGetTime();
 	float deltaTime = 0.016;
 
+	float orbitAngle = 0.0f;
+	float angle = 0.0f;
+
 	auto quadRot = glm::vec3(0, 0, 0);
 	float speed = 0.5;
 
-	glm::mat4 TransformQuad() {
+	glm::mat4 TransformObject() {
 		//Keyboard Input handled here
 		if (glfwGetKey(window, GLFW_KEY_RIGHT)) {
-			quadPos.x += deltaTime * speed;
+			objPos.x += deltaTime * speed;
 			//quadPos += glm::vec3(1 * speed, 0, 0);
 		}
 		if (glfwGetKey(window, GLFW_KEY_LEFT)) {
-			quadPos.x -= deltaTime * speed;
+			objPos.x -= deltaTime * speed;
 			//quadPos -= glm::vec3(1 * speed, 0, 0);
 		}
 		if (glfwGetKey(window, GLFW_KEY_UP)) {
-			quadPos.y += deltaTime * speed;
+			objPos.y += deltaTime * speed;
 			//quadPos += glm::vec3(0, 1 * speed, 0);
 		}
 		if (glfwGetKey(window, GLFW_KEY_DOWN)) {
-			quadPos.y -= deltaTime * speed;
+			objPos.y -= deltaTime * speed;
 			//quadPos -= glm::vec3(0, 1 * speed, 0);
 		}
-		//if (glfwGetKey(window, GLFW_KEY_SPACE)) {
-		//	quadRot += glm::vec3();
-		//}
+		//if (glfwGetKey(window, GLFW_KEY_Q) || glfwGetKey(window, GLFW_KEY_E)) 
+		//{
+		if (glfwGetKey(window, GLFW_KEY_Q)) {
+			//angle += deltaTime * 100.0f;
+			angle += deltaTime * 100.0f;
+		}
+		if (glfwGetKey(window, GLFW_KEY_E)) {
+			//angle -= deltaTime * 100.0f;
+			angle -= deltaTime * 200.0f;
+		} 		
 
-		glm::mat4 model; // represents object, starts in world space & identity matrix | render quad
-		model = glm::translate(model, quadPos);
+		glm::mat4 model;							// represents object, starts in world space & identity matrix | render quad
+		
+		model = glm::rotate(model, angle /*orbitAngle*/, vec3(1,1,0));
+		/*																								//orbit
+		model = glm::translate(model, objPos);		//moves quad
+		model = glm::rotate(model, angle, vec3(0, 0, 1));
+		*/
+
+		//orbitAngle += deltaTime * 100.0f;
 
 		return model;
 	}
 
+	//TASK ONE
+	//rotate around orbit
+	//spin independent of orbit
+
+	//TASK TWO
+	//create cubes
 
 	//if (state == GLFW_PRESS)
 	//	activate_airship();
@@ -56,7 +80,11 @@ void BeginRenderingLoop() {
 
 	GLuint triangleID = LoadTriangle();
 	GLuint quadID = LoadQuad(); //LoadCustomQuad();
+	GLuint cubeID = LoadCube();
 
+	//ObjLoader
+	ObjLoader::ObjData data;
+	ObjLoader::Load("cube.obj",data);
 
 	do {
 
@@ -66,8 +94,9 @@ void BeginRenderingLoop() {
 		//model = glm::translate(model, glm::vec3(1, 0, 0));
 
 		//RenderTriangle(triangleID);
-		RenderQuad(quadID, TransformQuad(), programID);
-
+		//RenderQuad(quadID, TransformQuad(), programID);
+		RenderCube(cubeID, TransformObject(),programID);
+		
 		//Update();
 		//Render();
 		glfwSwapBuffers(window);
@@ -125,5 +154,18 @@ void RenderTriangle(GLuint vertexBuffer, glm::mat4 model, GLuint programID/*shad
 	RenderVertex(vertexBuffer, model, programID); //ADDED programID
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDisableVertexAttribArray(0);
+}
+
+void RenderCube(GLuint vertexBuffer, glm::mat4 model, GLuint programID/*shader program*/) {
+	//glLoadIdentity();
+	//glPushMatrix();
+	//glTranslatef(2,0,0);
+
+	RenderVertex(vertexBuffer, model, programID);
+
+	//glPopMatrix();
+
+	glDrawArrays(GL_TRIANGLES, 0, myVertexArraySize);
 	glDisableVertexAttribArray(0);
 }

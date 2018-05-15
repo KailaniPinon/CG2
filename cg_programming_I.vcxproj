@@ -74,11 +74,13 @@
     <ClCompile Include="Init.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="OBJLoader.cpp" />
     <ClCompile Include="RenderGameLoop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Init.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="RenderGameLoop.h" />
   </ItemGroup>
   <ItemGroup>
